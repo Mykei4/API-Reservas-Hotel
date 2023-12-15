@@ -1,0 +1,14 @@
+{
+  "admin": {
+    "host": "localhost",
+    "username": "admin",
+    "password": "admin",
+    "db": "hotel"
+  },
+  "clientes": {
+    "host": "localhost",
+    "username": "cliente",
+    "password": "cliente",
+    "db": "hotel"
+  }
+}
