@@ -1,0 +1,61 @@
+-- Base de datos Hotel
+CREATE DATABASE IF NOT EXISTS hotel;
+
+-- Tabla de Habitaciones
+CREATE TABLE IF NOT EXISTS hotel.habitaciones (
+    id INT NOT NULL AUTO_INCREMENT,
+    Tipo TEXT NOT NULL,
+    Disponible BOOLEAN,
+    Precio INT NOT NULL,
+    PRIMARY KEY (id)
+) ENGINE = InnoDB;
+
+-- Tabla de Usuarios
+CREATE TABLE IF NOT EXISTS hotel.usuarios (
+    APIKEY VARCHAR(50) NOT NULL,
+    Nombre TEXT NOT NULL,
+    Apellido1 TEXT NOT NULL,
+    Apellido2 TEXT NOT NULL,
+    Teléfono INT,
+    Permisos BOOLEAN,
+    PRIMARY KEY (APIKEY)
+) ENGINE = InnoDB;
+
+-- Tabla de Reservas
+CREATE TABLE IF NOT EXISTS hotel.reservas (
+    id INT NOT NULL AUTO_INCREMENT,
+    Habitacion INT NOT NULL,
+    Cliente VARCHAR(50) NOT NULL,
+    FechaEntrada DATE NOT NULL,
+    FechaSalida DATE NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (Habitacion) REFERENCES hotel.habitaciones(id),
+    FOREIGN KEY (Cliente) REFERENCES hotel.usuarios(APIKEY)
+) ENGINE = InnoDB;
+
+--Dentro de la BBDD Hotel:
+
+-- Usuario Administrador
+CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';
+GRANT ALL PRIVILEGES ON hotel.* TO 'admin'@'localhost';
+FLUSH PRIVILEGES;
+
+-- Usuario Cliente
+CREATE USER 'cliente'@'localhost' IDENTIFIED BY 'cliente';
+GRANT SELECT, INSERT, UPDATE, DELETE ON hotel.reservas TO 'cliente'@'localhost';
+FLUSH PRIVILEGES;
+
+-- Inserts:
+
+INSERT INTO hotel.habitaciones (Tipo, Disponible, Precio)
+VALUES ('Suite', TRUE, 200),
+       ('Doble', TRUE, 100);
+
+INSERT INTO hotel.usuarios (APIKEY, Nombre, Apellido1, Apellido2, Teléfono, Permisos)
+VALUES ('APIKEY1', 'Admin', 'Admin', 'Admin', NULL, TRUE),
+       ('APIKEY2', 'Cliente1', 'Cliente1', 'Cliente1', 123456789, FALSE),
+       ('APIKEY3', 'Cliente2', 'Cliente2', 'Cliente2', 987654321, FALSE);
+
+INSERT INTO hotel.reservas (Habitacion, Cliente, FechaEntrada, FechaSalida)
+VALUES (1, 'APIKEY2', '2023-12-20', '2023-12-25'),
+       (2, 'APIKEY3', '2023-12-22', '2023-12-24');
