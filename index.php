@@ -175,7 +175,7 @@
             $result = $stmt->fetch();
     
             if ($result['count'] > 0) {
-                $db = $db['cliente'];
+                $db = $db['admin'];
                 return new PDO("mysql:host={$db['host']};dbname={$db['db']};charset=utf8", $db['username'], $db['password']);
             } else {
                 echo 'APIKEY inválido. Acceso denegado.';
@@ -194,7 +194,7 @@
                 $db = $db['admin'];
                 return new PDO("mysql:host={$db['host']};dbname={$db['db']};charset=utf8", $db['username'], $db['password']);
             } else {
-                echo 'Acceso denegado.';
+                echo 'APIKEY inválido. Acceso denegado.';
             }
         } else {
             echo 'Tipo de cuenta NO valido.';
