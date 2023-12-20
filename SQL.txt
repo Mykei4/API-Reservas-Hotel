@@ -33,17 +33,11 @@ CREATE TABLE IF NOT EXISTS hotel.reservas (
     FOREIGN KEY (Cliente) REFERENCES hotel.usuarios(APIKEY)
 ) ENGINE = InnoDB;
 
---Dentro de la BBDD Hotel:
-
--- Usuario Administrador
+-- Usuario:
 CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';
 GRANT ALL PRIVILEGES ON hotel.* TO 'admin'@'localhost';
 FLUSH PRIVILEGES;
 
--- Usuario Cliente
-CREATE USER 'cliente'@'localhost' IDENTIFIED BY 'cliente';
-GRANT SELECT, INSERT, UPDATE, DELETE ON hotel.reservas TO 'cliente'@'localhost';
-FLUSH PRIVILEGES;
 
 -- Inserts:
 
